@@ -1,6 +1,7 @@
 package com.pluralsight.sneakerdrops.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 public class Sneaker {
@@ -9,11 +10,18 @@ public class Sneaker {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
+    @Size(min = 2, message = "Model must be at lease 2 characters")
     private String model;
+
+    @DecimalMin("0.0")
     private double price;
+
+    @Min(1900)
     private int releaseYear;
 
     @ManyToOne(optional = false)
+    @NotNull
     private Brand brand;
 
     public Sneaker() { }
